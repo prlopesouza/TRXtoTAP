@@ -175,18 +175,42 @@ namespace TRX_to_TAP
                             sw.WriteLine("not ok 1 - " + res.outcome);
                             break;
                     }
+
+                    if (res.errorMessage != null)
+                    {
+                        String erro = res.errorMessage.Replace("\r\n", "\r\n# ");
+                        sw.WriteLine("# Erro: " + erro);
+                    }
+                    if (res.StackTrace != null)
+                    {
+                        String stack = res.StackTrace.Replace("\r\n", "\r\n# ");
+                        sw.WriteLine("# StackTrace: " + stack);
+                    }
+                    if (res.ResultFiles.Count > 0)
+                    {
+                        sw.WriteLine("   ---");
+                        sw.WriteLine("   extensions:");
+                        sw.WriteLine("    Files:");
+                        foreach (String file in res.ResultFiles)
+                        {
+                            String name = file.Substring(file.LastIndexOf("\\") + 1);
+                            byte[] fileContent = File.ReadAllBytes(file);
+                            //String base64 = Convert.ToBase64String(fileContent);
+
+                            sw.WriteLine("       " + file + ":");
+                            sw.WriteLine("        File-Location: " + file);
+                            sw.WriteLine("        File-Title: " + name);
+                            sw.WriteLine("        File-Description: " + name);
+                            sw.WriteLine("        File-Size: " + fileContent.Length);
+                            sw.WriteLine("        File-Name: " + name);
+                            //sw.WriteLine("        File-Content: " + base64);
+                            sw.WriteLine("        File-Type: " + getMimeType(name));
+                        }
+
+                        sw.WriteLine("   ...");
+                    }
                 }
-                if (res.errorMessage != null)
-                {
-                    String erro = res.errorMessage.Replace("\r\n", "\r\n# ");
-                    sw.WriteLine("# Erro: " + erro);
-                }
-                if (res.StackTrace != null)
-                {
-                    String stack = res.StackTrace.Replace("\r\n", "\r\n# ");
-                    sw.WriteLine("# StackTrace: " + stack);
-                }
-                if (c > 0)
+                else
                 {
                     sw.WriteLine("1.." + c);
                     int i = 1;

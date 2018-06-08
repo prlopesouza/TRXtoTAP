@@ -1,0 +1,7 @@
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\bin\Release\TRX to TAP.exe.config
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\bin\Release\TRX to TAP.exe
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\bin\Release\TRX to TAP.pdb
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\obj\Release\TRX to TAP.csprojResolveAssemblyReference.cache
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\obj\Release\TRX to TAP.csproj.CoreCompileInputs.cache
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\obj\Release\TRX to TAP.exe
+c:\Users\Paulo\source\repos\TRX to TAP\TRX to TAP\obj\Release\TRX to TAP.pdb
