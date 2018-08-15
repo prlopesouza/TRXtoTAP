@@ -34,6 +34,10 @@ namespace TRX_to_TAP
             //String trxPath = "C:\\Program Files (x86)\\Jenkins\\workspace\\AutoZ_Build\\ResultFile";
             //String tapRoot = "C:\\Program Files (x86)\\Jenkins\\workspace\\AutoZ_Build\\Taps";
 
+            string trxDir = Path.GetDirectoryName(trxPath);
+            string trxFile = Path.GetFileName(trxPath);
+            trxPath = Directory.GetFiles(trxDir, trxFile)[0];
+
             String namespaceUri = "http://microsoft.com/schemas/VisualStudio/TeamTest/2010";
             XPathDocument xml = new XPathDocument(trxPath);
             XPathNavigator navigator = xml.CreateNavigator();
@@ -45,7 +49,19 @@ namespace TRX_to_TAP
             navigator.MoveToChild("TestSettings", namespaceUri);
             navigator.MoveToChild("Deployment", namespaceUri);
 
-            DeploymentPath = navigator.GetAttribute("userDeploymentRoot", "") + "\\" + navigator.GetAttribute("runDeploymentRoot", "");
+            DeploymentPath = navigator.GetAttribute("userDeploymentRoot", "");
+            if (DeploymentPath=="" || DeploymentPath==null)
+            {
+                DeploymentPath = Environment.GetEnvironmentVariable("WORKSPACE");
+                if (DeploymentPath!=null && DeploymentPath!="")
+                {
+                    if (Directory.Exists(DeploymentPath+"\\TestResults"))
+                    {
+                        DeploymentPath += "\\TestResults";
+                    }
+                }
+            }
+            DeploymentPath += "\\" + navigator.GetAttribute("runDeploymentRoot", "");
 
             navigator.MoveToParent();
             navigator.MoveToParent();
